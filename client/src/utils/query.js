@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 //queries are taken from graphql playground/localhost query tester and pasted here
-const GET_ME = gql`
+export const GET_ME = gql`
   {
     me {
       _id
@@ -18,4 +18,4 @@ const GET_ME = gql`
     }
   }
 `;
-module.exports = GET_ME;
+//module.exports = GET_ME;
