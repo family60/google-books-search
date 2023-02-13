@@ -36,21 +36,21 @@ const SearchBooks = () => {
       const response = await searchGoogleBooks(searchInput);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
         bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
+        authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
+        image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
       setSearchedBooks(bookData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -69,10 +69,10 @@ const SearchBooks = () => {
     }
 
     try {
-      const {data} = await saveBook({variables: {input: bookToSave}});
+      const {data} = await saveBook({variables: {input: {...bookToSave}}});
 
       if (error) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       // if book successfully saves to user's account, save book id to state

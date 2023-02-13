@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 //import { getMe, deleteBook } from '../utils/API';
@@ -10,11 +10,11 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
-  const [loadingInfo, data] = useQuery(GET_ME);
+  const {loading, data} = useQuery(GET_ME);
   const userData = data?.me || {};
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  //const userDataLength = Object.keys(userData).length;
 
   // useEffect(() => {
   //   const getUserData = async () => {
@@ -53,7 +53,7 @@ const SavedBooks = () => {
       const {data} = await removeBook({variables: {bookId}});
 
       if (error) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
@@ -62,10 +62,13 @@ const SavedBooks = () => {
     }
   };
 
+  console.log(data)
+
   // if data isn't here yet, say so
-  if (loadingInfo) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
+  // return <div>TEST</div>
 
   return (
     <>
@@ -76,12 +79,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {userData?.savedBooks?.length
+            ? `Viewing ${userData?.savedBooks?.length} saved ${userData?.savedBooks?.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userData?.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}

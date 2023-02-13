@@ -7,7 +7,8 @@ const resolvers = {
     Query: {
         me: async(parent, args, context) => {
             if(context.user) {//if there is a user logged in
-                const userData = await User.findOne({_id: context.user._id}).select("-__v -password");
+                const userData = await User.findOne({_id: context.user._id}).select("-__v -password")
+            
                 return userData;
             }//if not
             throw new AuthenticationError("You are not Logged In");
@@ -38,7 +39,7 @@ const resolvers = {
         },
         saveBook: async(parent, {input}, context) => {
             if(context.user){//this can only work if the user is logged in
-                const updatedUser = await User.findOneAndUpdate({_id: context.user._id}, {$addToSet: {savedBooks: input}}, {new: true});
+                const updatedUser = await User.findByIdAndUpdate({_id: context.user._id}, {$addToSet: {savedBooks: input}}, {new: true});
                 return updatedUser;
             }//if they are not logged in, they cannot use the feature
             throw new AuthenticationError("You need to be logged in to use this feature!");
