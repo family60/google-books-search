@@ -12,7 +12,7 @@ The app was originally using REST APIs and has since then been refactored comple
 4. npm run develop
 
 ## Demo
-A Live demo can be found at this link: 
+A Live demo can be found at this link: https://google-books-search.herokuapp.com/
 
 The users are met with the homepage of the application up loading into it:
 ![image](https://user-images.githubusercontent.com/80120484/218602143-ac1363bd-5996-409c-8a66-98a5b75579ae.png)
